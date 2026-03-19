@@ -210,7 +210,7 @@ Accessibility and reliability focus:
 ## Quick Links
 
 - Live UI: https://tripadh.github.io/DEVTRAILS_HACKATHON/
-- Repository: https://github.com/Tripadh/DEVTRAILS_HACKATHON
+
 
 ---
 
