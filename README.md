@@ -316,4 +316,4 @@ Built for the GigShield Hackathon - Phase 1 Submission (March 2025).
 
 ---
 
-*GigShield - Parametric Insurance for Gig Delivery Workers - India - 2025*
+*GigShield - Parametric Insurance for Gig Delivery Workers - India - 2026*
