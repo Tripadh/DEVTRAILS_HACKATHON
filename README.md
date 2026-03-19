@@ -7,7 +7,7 @@ Free, automatic payouts when rain, heat, or curfews make work impossible - no cl
 [![Cost to Workers](https://img.shields.io/badge/Cost%20to%20Workers-%E2%82%B90-green?style=flat-square)](https://github.com/Tripadh/DEVTRAILS_HACKATHON)
 [![Payout Time](https://img.shields.io/badge/Payout%20Time-%3C15%20min-brightgreen?style=flat-square)](https://github.com/Tripadh/DEVTRAILS_HACKATHON)
 
-🎬 **[Live Demo](#live-demo-link)** | 🎨 **[Figma Prototype](#figma-prototype-link)** | 📹 **[2-min Video](#two-min-video-link)** | 🌐 **[Full UI Page](https://tripadh.github.io/DEVTRAILS_HACKATHON/)**
+ 🎨 **[Figma Prototype](#figma-prototype-link)** | 📹 **[2-min Video](#two-min-video-link)** | 🌐 **[Full UI Page](https://tripadh.github.io/DEVTRAILS_HACKATHON/)**
 
 ---
 
