@@ -4,7 +4,6 @@ Free, automatic payouts when rain, heat, or curfews make work impossible - no cl
 
 [![Phase](https://img.shields.io/badge/Phase-1%20Submission-orange?style=flat-square)](https://github.com/Tripadh/DEVTRAILS_HACKATHON)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%28React%20Native%29-blue?style=flat-square)](https://github.com/Tripadh/DEVTRAILS_HACKATHON)
-[![Cost to Workers](https://img.shields.io/badge/Cost%20to%20Workers-%E2%82%B90-green?style=flat-square)](https://github.com/Tripadh/DEVTRAILS_HACKATHON)
 [![Payout Time](https://img.shields.io/badge/Payout%20Time-%3C15%20min-brightgreen?style=flat-square)](https://github.com/Tripadh/DEVTRAILS_HACKATHON)
 
  🎨 **[Figma Prototype](#figma-prototype-link)** | 📹 **[2-min Video](#two-min-video-link)** | 🌐 **[Full UI Page](https://tripadh.github.io/DEVTRAILS_HACKATHON/)**
@@ -125,15 +124,17 @@ Cross-validation rule: trigger fires only when at least two independent data sou
 
 <a id="06--coverage-model"></a>
 ## 06 - Coverage Model
+| Feature / Plan   | 🟢 Basic Plan    | 🔵 Standard Plan ⭐ Recommended | 🔴 Pro Plan             |
+| ---------------- | ---------------- | ------------------------------ | ----------------------- |
+| Weekly Premium   | ₹25 – ₹35        | ₹40 – ₹60                      | ₹70 – ₹90               |
+| Trigger Coverage | 3 Core Triggers  | All 5 Triggers                 | All + Priority Coverage |
+| Activation       | Instant          | Instant                        | Instant                 |
+| Payout per Event | Up to ₹300       | Up to ₹500                     | Up to ₹800              |
+| Claim Processing | Standard         | Faster                         | Priority (Fastest)      |
+| AI-Based Pricing | ✅ Yes            | ✅ Yes                          | ✅ Advanced              |
+| Fraud Protection | Basic            | Smart Detection                | Advanced Detection      |
+| Best For         | Low-risk workers | Most users                     | High-risk / heavy users |
 
-### 🎁 100% free for every gig delivery worker
-
-| Included benefit |
-|------------------|
-| ✅ Sign up once, covered immediately |
-| ✅ All 5 triggers covered |
-| ✅ Payouts up to INR 800 per event |
-| ✅ No plans, no tiers, no catch |
 
 ### How it is funded (B2B revenue model)
 
