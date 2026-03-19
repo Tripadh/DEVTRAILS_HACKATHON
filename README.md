@@ -7,7 +7,7 @@
 [![Cost to Workers](https://img.shields.io/badge/Cost%20to%20Workers-%E2%82%B90-green?style=flat-square)](https://github.com/Tripadh/DEVTRAILS_HACKATHON)
 [![Payout Time](https://img.shields.io/badge/Payout%20Time-%3C15%20min-brightgreen?style=flat-square)](https://github.com/Tripadh/DEVTRAILS_HACKATHON)
 
-🎬 **[Live Demo](#)** | 🎨 **[Figma Prototype](#)** | 📹 **[2-min Video](#)** | 🌐 **[Full UI Page](https://tripadh.github.io/DEVTRAILS_HACKATHON/)**
+🎬 **[Live Demo](#live-demo-link)** | 🎨 **[Figma Prototype](#figma-prototype-link)** | 📹 **[2-min Video](#two-min-video-link)** | 🌐 **[Full UI Page](https://tripadh.github.io/DEVTRAILS_HACKATHON/)**
 
 ---
 
@@ -32,6 +32,7 @@
 
 ---
 
+<a id="01--problem-statement"></a>
 ## 01 - Problem Statement
 
 India's 12 million gig delivery workers lose income every time it rains, overheats, or a curfew drops. There is no insurance product designed for this. Filing a traditional claim takes weeks and usually gets rejected.
@@ -47,6 +48,7 @@ India's 12 million gig delivery workers lose income every time it rains, overhea
 
 ---
 
+<a id="02--our-solution"></a>
 ## 02 - Our Solution
 
 GigShield is a **free, mobile-first parametric insurance platform** that automatically detects external disruptions and pays workers directly to their UPI accounts, with no forms, no adjusters, and no waiting.
@@ -58,6 +60,7 @@ GigShield is a **free, mobile-first parametric insurance platform** that automat
 
 ---
 
+<a id="03--persona-definition"></a>
 ## 03 - Persona Definition
 
 ### 🛵 Ravi Kumar, 28 - Food Delivery Rider, South Bengaluru
@@ -76,6 +79,7 @@ GigShield is a **free, mobile-first parametric insurance platform** that automat
 
 ---
 
+<a id="04--system-workflow"></a>
 ## 04 - System Workflow
 
 ### End-to-end flow
@@ -105,6 +109,7 @@ D. Dispatches UPI payout via Razorpay
 
 ---
 
+<a id="05--parametric-triggers"></a>
 ## 05 - Parametric Triggers
 
 All payouts are triggered by **verifiable, external data** and not worker claims. Every trigger requires **2+ independent sources** to agree before firing.
@@ -121,6 +126,7 @@ All payouts are triggered by **verifiable, external data** and not worker claims
 
 ---
 
+<a id="06--coverage-model"></a>
 ## 06 - Coverage Model
 
 ### 🎁 100% free for every gig delivery worker
@@ -142,6 +148,7 @@ All payouts are triggered by **verifiable, external data** and not worker claims
 
 ---
 
+<a id="07--ai--ml-architecture"></a>
 ## 07 - AI / ML Architecture
 
 Four purpose-built ML systems, each solving one specific problem.
@@ -168,6 +175,7 @@ Predicts drop-off risk and sends personalized nudges based on zone risk and enga
 
 ---
 
+<a id="08--anti-spoofing-defense"></a>
 ## 08 - Anti-Spoofing Defense
 
 GPS spoofing is the primary fraud vector. GigShield uses **3 independent layers** and a fraud ring must defeat all three.
@@ -182,6 +190,7 @@ Layer 3 (Network, 10-30s): DBSCAN clusters, Louvain communities, shared IP/ASN, 
 
 ---
 
+<a id="09--fraud-detection-pipeline"></a>
 ## 09 - Fraud Detection Pipeline
 
 ```text
@@ -198,6 +207,7 @@ Decision bands:
 
 ---
 
+<a id="10--tech-stack"></a>
 ## 10 - Tech Stack
 
 | Layer | Technology | Why |
@@ -213,6 +223,7 @@ Decision bands:
 
 ---
 
+<a id="11--system-architecture"></a>
 ## 11 - System Architecture
 
 ```mermaid
@@ -233,6 +244,7 @@ flowchart TD
 
 ---
 
+<a id="12--ux-design-flow"></a>
 ## 12 - UX Design Flow
 
 ```text
@@ -247,6 +259,7 @@ Design principles:
 
 ---
 
+<a id="13--why-our-solution-is-strong"></a>
 ## 13 - Why Our Solution Is Strong
 
 | # | Strength | Why it matters |
@@ -260,6 +273,7 @@ Design principles:
 
 ---
 
+<a id="14--future-scope"></a>
 ## 14 - Future Scope
 
 ### Phase 2 - April 2025
@@ -296,6 +310,19 @@ DEVTRAILS_HACKATHON/
 ## 👥 Team
 
 Built for the GigShield Hackathon - Phase 1 Submission (March 2025).
+
+---
+
+## Links To Be Added
+
+<a id="live-demo-link"></a>
+- Live Demo: coming soon
+
+<a id="figma-prototype-link"></a>
+- Figma Prototype: coming soon
+
+<a id="two-min-video-link"></a>
+- 2-min Video: coming soon
 
 ---
 
