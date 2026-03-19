@@ -1,6 +1,6 @@
 ﻿# 🛡️ GigShield
 ### AI-powered parametric insurance for gig delivery workers
-> Free, automatic payouts when rain, heat, or curfews make work impossible - no claims, no forms, money in 15 minutes.
+Free, automatic payouts when rain, heat, or curfews make work impossible - no claims, no forms, money in 15 minutes.
 
 [![Phase](https://img.shields.io/badge/Phase-1%20Submission-orange?style=flat-square)](https://github.com/Tripadh/DEVTRAILS_HACKATHON)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%28React%20Native%29-blue?style=flat-square)](https://github.com/Tripadh/DEVTRAILS_HACKATHON)
@@ -39,24 +39,24 @@ India's 12 million gig delivery workers lose income every time it rains, overhea
 
 | Stat | Value |
 |------|-------|
-| 🛵 Gig delivery workers in India | **12 million+** |
-| ⚠️ Experience monthly disruptions | **47%** |
-| 💸 Average monthly income lost | **INR 2,400** |
-| 🚫 Existing parametric insurance products for them | **Zero** |
+| 🛵 Gig delivery workers in India | 12 million+ |
+| ⚠️ Experience monthly disruptions | 47% |
+| 💸 Average monthly income lost | INR 2,400 |
+| 🚫 Existing parametric insurance products for them | Zero |
 
-**The gap:** When a monsoon hits Bengaluru or a curfew drops in Hyderabad, these workers lose the day with no safety net and no product built for their reality.
+The gap: when a monsoon hits Bengaluru or a curfew drops in Hyderabad, these workers lose the day with no safety net and no product built for their reality.
 
 ---
 
 <a id="02--our-solution"></a>
 ## 02 - Our Solution
 
-GigShield is a **free, mobile-first parametric insurance platform** that automatically detects external disruptions and pays workers directly to their UPI accounts, with no forms, no adjusters, and no waiting.
+GigShield is a free, mobile-first parametric insurance platform that automatically detects external disruptions and pays workers directly to their UPI accounts, with no forms, no adjusters, and no waiting.
 
-> **Key innovation:** Traditional insurance = worker proves harm -> waits weeks.  
-> GigShield = system detects event -> pays in **15 minutes**.
+Key innovation: Traditional insurance = worker proves harm -> waits weeks.  
+GigShield = system detects event -> pays in 15 minutes.
 
-**How it's funded:** Platform partners (Swiggy, Zomato, Zepto) pay GigShield per enrolled worker as a welfare benefit. Workers pay **INR 0**.
+How it's funded: platform partners (Swiggy, Zomato, Zepto) pay GigShield per enrolled worker as a welfare benefit. Workers pay INR 0.
 
 ---
 
@@ -72,9 +72,10 @@ GigShield is a **free, mobile-first parametric insurance platform** that automat
 | No paid leave or savings | Loses full day in heavy rain | Insurance claim rejected before |
 | Sends INR 8,000/month home | Uses UPI for everything | Cannot afford annual premiums |
 
-**Ravi's GigShield moment:**
+Ravi's GigShield moment:
+
 > Rain hits Bengaluru. Before he decides whether to ride or wait, his phone buzzes.  
-> *"Heavy rain in your zone. INR 400 payout sent."*  
+> "Heavy rain in your zone. INR 400 payout sent."  
 > He filed nothing. Called no one.
 
 ---
@@ -91,28 +92,24 @@ Worker App -> AI Risk Engine -> Coverage Live -> Zone Monitor -> Trigger Fires -
 
 ### What the worker sees
 
-```text
-1. Sign up with OTP -> link delivery account + UPI ID
-2. Coverage active immediately -> no payment needed
-3. App shows status: Protected / Checking / Payout processing
-4. Push notification + UPI transfer -> fully automatic
-```
+1. Sign up with OTP -> link delivery account + UPI ID.
+2. Coverage active immediately -> no payment needed.
+3. App shows status: Protected / Checking / Payout processing.
+4. Push notification + UPI transfer -> fully automatic.
 
 ### What the system does
 
-```text
-A. Polls weather APIs every 15 min per geohash zone (~1.2km2)
-B. Matches affected zones to all active covered workers
-C. Runs 3-layer fraud check in under 30 seconds
-D. Dispatches UPI payout via Razorpay
-```
+A. Polls weather APIs every 15 min per geohash zone (~1.2km2).  
+B. Matches affected zones to all active covered workers.  
+C. Runs 3-layer fraud check in under 30 seconds.  
+D. Dispatches UPI payout via Razorpay.
 
 ---
 
 <a id="05--parametric-triggers"></a>
 ## 05 - Parametric Triggers
 
-All payouts are triggered by **verifiable, external data** and not worker claims. Every trigger requires **2+ independent sources** to agree before firing.
+All payouts are triggered by verifiable external data, not worker claims. Every trigger requires 2+ independent sources to agree before firing.
 
 | Event | Threshold | Payout | Data Source |
 |-------|-----------|--------|-------------|
@@ -122,7 +119,7 @@ All payouts are triggered by **verifiable, external data** and not worker claims
 | 🌊 Urban Flooding | Municipal flood alert for ward/zone | INR 500-700 | BBMP / GHMC / BMC municipal APIs |
 | 🌀 Cyclone Warning | IMD Category 1+ within 200km | INR 600-900 | IMD Cyclone Centre + RSMC |
 
-> **Cross-validation rule:** Trigger fires only when at least two independent data sources confirm the same threshold breach.
+Cross-validation rule: trigger fires only when at least two independent data sources confirm the same threshold breach.
 
 ---
 
@@ -142,9 +139,9 @@ All payouts are triggered by **verifiable, external data** and not worker claims
 
 | Source | How it works |
 |--------|--------------|
-| 🏢 **Platform Partnerships** | Swiggy / Zomato / Zepto pay per enrolled worker as welfare coverage |
-| 📊 **Anonymized Data** | Aggregated disruption insights for logistics route planning |
-| 🤝 **CSR / ESG Funding** | Worker welfare programs aligned with ESG reporting |
+| 🏢 Platform Partnerships | Swiggy / Zomato / Zepto pay per enrolled worker as welfare coverage |
+| 📊 Anonymized Data | Aggregated disruption insights for logistics route planning |
+| 🤝 CSR / ESG Funding | Worker welfare programs aligned with ESG reporting |
 
 ---
 
@@ -156,54 +153,55 @@ Four purpose-built ML systems, each solving one specific problem.
 ### 1) 💰 Payout Scoring Engine
 Calculates exact payout per event using zone severity, weather intensity, and geohash disruption history.
 
-**Models:** `XGBoost`, `LSTM`, `Geohash feature encoding`
+Models: XGBoost, LSTM, Geohash feature encoding.
 
 ### 2) 🛡️ Fraud Detection (3-layer)
 Detects GPS spoofing, coordinated fraud rings, and fake accounts in under 30 seconds.
 
-**Models:** `DBSCAN clustering`, `Louvain community detection`, `ARIMA + LSTM behavioral model`
+Models: DBSCAN clustering, Louvain community detection, ARIMA + LSTM behavioral model.
 
 ### 3) 🔮 Disruption Forecasting
 Provides 48-hour risk forecasts per geohash cell to help workers and partners plan.
 
-**Models:** `Random Forest`, `IMD historical data`, `Geohash spatial encoding`
+Models: Random Forest, IMD historical data, Geohash spatial encoding.
 
 ### 4) 📉 Worker Retention Model
 Predicts drop-off risk and sends personalized nudges based on zone risk and engagement signals.
 
-**Models:** `Logistic Regression`, `Engagement event features`, `A/B-tested notification variants`
+Models: Logistic Regression, engagement event features, A/B-tested notification variants.
 
 ---
 
 <a id="08--anti-spoofing-defense"></a>
 ## 08 - Anti-Spoofing Defense
 
-GPS spoofing is the primary fraud vector. GigShield uses **3 independent layers** and a fraud ring must defeat all three.
+GPS spoofing is the primary fraud vector. GigShield uses 3 independent layers, and a fraud ring must defeat all three.
 
-```text
-Layer 1 (Device, <500ms): IMU vs GPS, GNSS quality, mock location flags, cell/wifi consistency
-Layer 2 (Behavior, 2-5s): Work-hour baseline, zone history, active session checks, device continuity
-Layer 3 (Network, 10-30s): DBSCAN clusters, Louvain communities, shared IP/ASN, claim burst detection
-```
+- Layer 1 (Device, <500ms): IMU vs GPS, GNSS quality, mock location flags, cell/wifi consistency.
+- Layer 2 (Behavior, 2-5s): work-hour baseline, zone history, active session checks, device continuity.
+- Layer 3 (Network, 10-30s): DBSCAN clusters, Louvain communities, shared IP/ASN, claim burst detection.
 
-> 🔒 **Replay protection:** Every GPS report is signed with nonce + timestamp so past valid traces cannot be replayed.
+🔒 Replay protection: every GPS report is signed with nonce + timestamp so past valid traces cannot be replayed.
 
 ---
 
 <a id="09--fraud-detection-pipeline"></a>
 ## 09 - Fraud Detection Pipeline
 
-```text
-Data Inputs -> Feature Extraction -> Risk Scoring -> Decision Engine -> Outcome
-GPS/IMU/IP/activity -> behavior+cluster features -> L1+L2+L3 ensemble -> Pay/Hold/Review -> UPI/Hold/Manual
+```mermaid
+flowchart LR
+    A[Data Inputs\nGPS, IMU, IP, activity] --> B[Feature Extraction\nbehavior + cluster features]
+    B --> C[Risk Scoring\nL1 + L2 + L3 ensemble]
+    C --> D{Decision Engine}
+    D -->|0.00-0.35| E[PAY]
+    D -->|0.35-0.72| F[HOLD]
+    D -->|0.72-1.00| G[REVIEW]
+    E --> H[UPI Payout]
+    F --> I[Short Hold]
+    G --> J[Manual Review]
 ```
 
-Decision bands:
-- `0.00-0.35` -> PAY
-- `0.35-0.72` -> HOLD
-- `0.72-1.00` -> REVIEW
-
-**Target:** under 2% of legitimate workers reach manual review.
+Target: under 2% of legitimate workers reach manual review.
 
 ---
 
@@ -212,14 +210,14 @@ Decision bands:
 
 | Layer | Technology | Why |
 |-------|------------|-----|
-| 📱 **Mobile** | React Native (Expo) + Zustand | Single iOS + Android codebase with GPS/IMU access |
-| ⚙️ **Backend** | Node.js + Fastify + BullMQ + Redis | Async fraud jobs do not block payouts |
-| 🗄️ **Database** | PostgreSQL + PostGIS | Geospatial zone queries |
-| 🧠 **AI / ML** | Python + FastAPI + XGBoost + NetworkX + MLflow | Fraud graphs + model lifecycle tracking |
-| 🌦️ **Weather APIs** | IMD + OpenWeatherMap + NDMA + Rainviewer | 2+ source validation before trigger fire |
-| 💳 **Payments** | Razorpay + UPI + DigiLocker | Instant payout rail + KYC support |
-| 🔔 **Auth / Push** | Firebase Auth (OTP) + Firebase FCM | Fast login + real-time payout notifications |
-| ☁️ **Infra** | AWS + Cloudflare + GitHub Actions + Sentry | Scale, protection, CI/CD, and observability |
+| 📱 Mobile | React Native (Expo) + Zustand | Single iOS + Android codebase with GPS/IMU access |
+| ⚙️ Backend | Node.js + Fastify + BullMQ + Redis | Async fraud jobs do not block payouts |
+| 🗄️ Database | PostgreSQL + PostGIS | Geospatial zone queries |
+| 🧠 AI / ML | Python + FastAPI + XGBoost + NetworkX + MLflow | Fraud graphs + model lifecycle tracking |
+| 🌦️ Weather APIs | IMD + OpenWeatherMap + NDMA + Rainviewer | 2+ source validation before trigger fire |
+| 💳 Payments | Razorpay + UPI + DigiLocker | Instant payout rail + KYC support |
+| 🔔 Auth / Push | Firebase Auth (OTP) + Firebase FCM | Fast login + real-time payout notifications |
+| ☁️ Infra | AWS + Cloudflare + GitHub Actions + Sentry | Scale, protection, CI/CD, and observability |
 
 ---
 
@@ -228,18 +226,18 @@ Decision bands:
 
 ```mermaid
 flowchart TD
-    U[Worker Mobile App] <--> A[Admin Dashboard]
+    U[Worker App] <--> A[Admin Dashboard]
     U --> FE[React Native Frontend]
     A --> FE
-    FE --> API[Backend API: Node.js + Fastify]
+    FE --> API[Backend API\nNode.js + Fastify]
 
-    API --> AI[AI/ML Services\nPayout Engine + Fraud Engine]
-    API --> EM[Event Monitor\nBullMQ + Redis]
+    API --> ML[AI/ML Services\nPayout + Fraud Models]
+    API --> MON[Event Monitor\nBullMQ + Redis]
     API --> DB[(PostgreSQL + PostGIS)]
 
-    WX[Weather + Alert APIs\nIMD, OWM, NDMA, Rainviewer, Municipal] --> EM
-
-    API --> P[Payments + Identity\nRazorpay, UPI, DigiLocker, FCM]
+    WX[IMD + OWM + NDMA + Rainviewer + Municipal APIs] --> MON
+    API --> PAY[Razorpay + UPI]
+    API --> IDKYC[Firebase OTP + DigiLocker + FCM]
 ```
 
 ---
@@ -252,24 +250,25 @@ flowchart TD
 ```
 
 Design principles:
-- 🇮🇳 Hindi + English, zero insurance jargon
-- 📶 Low-connectivity resilience with notification fallback
-- 🧭 Transparent payout explanations
-- 🤝 Non-accusatory review messaging
+
+- 🇮🇳 Hindi + English, zero insurance jargon.
+- 📶 Low-connectivity resilience with notification fallback.
+- 🧭 Transparent payout explanations.
+- 🤝 Non-accusatory review messaging.
 
 ---
 
 <a id="13--why-our-solution-is-strong"></a>
-## 13 - Why Our Solution Is Strong
+## 13 - Why Our Solution is Strong
 
 | # | Strength | Why it matters |
 |---|----------|----------------|
-| ⚡ | **Fully Automated** | 95%+ payouts with zero human intervention |
-| 🛡️ | **Fraud-Resistant** | 3 independent layers catch coordinated abuse |
-| 📈 | **Scalable Business** | B2B model scales with worker enrollment |
-| 🎯 | **Low Literacy Barrier** | Auto-enrolled, auto-paid experience |
-| 🔍 | **Transparent** | Threshold logic visible and explainable |
-| 🇮🇳 | **India-Native** | IMD, UPI, DigiLocker, bilingual UX |
+| ⚡ | Fully Automated | 95%+ payouts with zero human intervention |
+| 🛡️ | Fraud-Resistant | 3 independent layers catch coordinated abuse |
+| 📈 | Scalable Business | B2B model scales with worker enrollment |
+| 🎯 | Low Literacy Barrier | Auto-enrolled, auto-paid experience |
+| 🔍 | Transparent | Threshold logic visible and explainable |
+| 🇮🇳 | India-Native | IMD, UPI, DigiLocker, bilingual UX |
 
 ---
 
@@ -277,23 +276,23 @@ Design principles:
 ## 14 - Future Scope
 
 ### Phase 2 - April 2025
-- Full ML fraud stack deployed
-- First real UPI payouts to pilot workers
-- Layers 1 and 2 anti-spoofing in production
-- Live user testing in Bengaluru
+- Full ML fraud stack deployed.
+- First real UPI payouts to pilot workers.
+- Layers 1 and 2 anti-spoofing in production.
+- Live user testing in Bengaluru.
 
 ### Phase 3 - May 2025
-- Layer 3 network fraud ring detection live
-- Multi-city rollout (Bengaluru -> Chennai -> Mumbai)
-- Fleet operator dashboard
-- Automated retraining pipeline
+- Layer 3 network fraud ring detection live.
+- Multi-city rollout (Bengaluru -> Chennai -> Mumbai).
+- Fleet operator dashboard.
+- Automated retraining pipeline.
 
 ### Post-hackathon
-- AQI trigger for winter pollution events
-- Regulatory sandbox progression
-- B2B API for gig platform integrations
-- Satellite imagery checks for flood validation
-- Direct delivery platform session-proof integration
+- AQI trigger for winter pollution events.
+- Regulatory sandbox progression.
+- B2B API for gig platform integrations.
+- Satellite imagery checks for flood validation.
+- Direct delivery platform session-proof integration.
 
 ---
 
@@ -316,4 +315,4 @@ Built for the GigShield Hackathon - Phase 1 Submission (March 2025).
 
 ---
 
-*GigShield - Parametric Insurance for Gig Delivery Workers - India - 2026*
+GigShield - Parametric Insurance for Gig Delivery Workers - India - 2026
