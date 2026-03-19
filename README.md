@@ -6,6 +6,8 @@ Free, automatic insurance for delivery workers. Payouts are triggered by rain, h
 
 - Full page UI: https://tripadh.github.io/DEVTRAILS_HACKATHON/
 - Source page: `index.html`
+- Figma prototype: (add link later)
+- Demo link: (add link later)
 
 ## 01) Problem
 
