@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import AppShell from './components/AppShell'
 import AIRiskEnginePage from './pages/AIRiskEnginePage'
 import CoveragePlansPage from './pages/CoveragePlansPage'
@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage'
 import PayoutPage from './pages/PayoutPage'
 import RegisterWorkerPage from './pages/RegisterWorkerPage'
 import TriggerMonitorPage from './pages/TriggerMonitorPage'
+import { SESSION_STORAGE_KEY } from './services/apiClient'
 
 function RequireRole({ user, allow, children }) {
   if (!allow.includes(user.role)) {
@@ -76,9 +77,25 @@ function ProtectedLayout({ user, onLogout }) {
 }
 
 function App() {
-  const [session, setSession] = useState(null)
+  const [session, setSession] = useState(() => {
+    try {
+      const raw = window.localStorage.getItem(SESSION_STORAGE_KEY)
+      return raw ? JSON.parse(raw) : null
+    } catch {
+      return null
+    }
+  })
 
   const user = useMemo(() => session?.user || null, [session])
+
+  useEffect(() => {
+    if (session) {
+      window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session))
+      return
+    }
+
+    window.localStorage.removeItem(SESSION_STORAGE_KEY)
+  }, [session])
 
   function handleLogout() {
     setSession(null)

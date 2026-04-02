@@ -12,8 +12,14 @@ function PayoutPage() {
   }, [])
 
   async function handleSimulate() {
-    const result = await simulateTrigger()
-    setSimResult(result.message)
+    try {
+      const result = await simulateTrigger()
+      setSimResult(result.message)
+      const updatedRows = await fetchPayouts()
+      setRows(updatedRows)
+    } catch (error) {
+      setSimResult(error.message || 'Unable to simulate payout trigger right now.')
+    }
   }
 
   return (
@@ -65,7 +71,9 @@ function PayoutPage() {
             Simulate Trigger
           </button>
 
-          <p className="text-sm text-slate-600">Latest message: INR 400 credited</p>
+          <p className="text-sm text-slate-600">
+            Latest message: {simResult || 'No trigger simulation yet'}
+          </p>
         </div>
 
         {simResult && (

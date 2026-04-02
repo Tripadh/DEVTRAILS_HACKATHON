@@ -51,7 +51,7 @@ MONGO_URI=mongodb://localhost:27017/gigshield_db
 
 **For Cloud MongoDB (Atlas):**
 ```
-MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/gigshield_db
+MONGO_URI=<your_mongodb_connection_string>
 ```
 
 ## 🔗 Connection Setup

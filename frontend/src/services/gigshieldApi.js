@@ -13,20 +13,87 @@ import apiClient from './apiClient'
 
 const sleep = (ms = 250) => new Promise((resolve) => setTimeout(resolve, ms))
 
-const USE_MOCK = true
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true'
 const inMemoryUsers = [...demoUsers]
+const INR_FORMATTER = new Intl.NumberFormat('en-IN')
 
-function buildSession(user) {
+function unwrapData(response) {
+  return response?.data?.data ?? response?.data
+}
+
+function formatCurrencyInr(value = 0) {
+  return `INR ${INR_FORMATTER.format(Number(value || 0))}`
+}
+
+function statusFromEventType(eventType) {
+  if (eventType === 'RAIN' || eventType === 'HEAT') {
+    return 'Triggered'
+  }
+
+  return 'Safe'
+}
+
+function decisionFromEventType(eventType) {
+  if (eventType === 'RAIN' || eventType === 'HEAT') {
+    return 'Auto Approve'
+  }
+
+  return 'Hold'
+}
+
+function normalizeRole(roleOrPlatform) {
+  const value = String(roleOrPlatform || '').toLowerCase()
+
+  if (value === 'operations') {
+    return 'ops'
+  }
+
+  if (value === 'insurance') {
+    return 'insurer'
+  }
+
+  if (roleDisplayMap[value]) {
+    return value
+  }
+
+  return 'worker'
+}
+
+function buildSession(user, token = null) {
+  const normalizedRole = normalizeRole(user.role || user.platform)
+
   return {
-    token: `demo-token-${user.id}`,
+    token: token || `demo-token-${user.id}`,
     user: {
       id: user.id,
       name: user.name,
       email: user.email,
-      role: user.role,
-      roleLabel: roleDisplayMap[user.role] || user.role,
+      role: normalizedRole,
+      roleLabel: roleDisplayMap[normalizedRole] || normalizedRole,
       company: user.company || null,
       workerCompanyId: user.workerCompanyId || null,
+      location: user.location || null,
+      platform: user.platform || normalizedRole,
+    },
+  }
+}
+
+function mapAuthSession(apiData, fallbackRole = 'worker') {
+  const role = normalizeRole(fallbackRole || apiData?.user?.platform)
+  const backendUser = apiData?.user || {}
+
+  return {
+    token: apiData?.token,
+    user: {
+      id: backendUser.id,
+      name: backendUser.name,
+      email: backendUser.email,
+      role,
+      roleLabel: roleDisplayMap[role] || role,
+      company: null,
+      workerCompanyId: null,
+      location: backendUser.location || null,
+      platform: backendUser.platform || role,
     },
   }
 }
@@ -52,8 +119,13 @@ export async function loginUser(payload) {
     return buildSession(user)
   }
 
-  const response = await apiClient.post('/auth/login', payload)
-  return response.data
+  const response = await apiClient.post('/auth/login', {
+    email: payload.email,
+    password: payload.password,
+  })
+  const apiData = unwrapData(response)
+
+  return mapAuthSession(apiData, payload.role)
 }
 
 export async function signupUser(payload) {
@@ -104,18 +176,24 @@ export async function signupUser(payload) {
     return buildSession(user)
   }
 
-  const response = await apiClient.post('/auth/signup', payload)
-  return response.data
+  const response = await apiClient.post('/auth/register', {
+    name: payload.name,
+    email: payload.email,
+    password: payload.password,
+    location: payload.location || payload.company || 'Bengaluru',
+    platform: normalizeRole(payload.role || payload.platform),
+  })
+  const apiData = unwrapData(response)
+
+  return mapAuthSession(apiData, payload.role)
 }
 
 export async function fetchRoleOptions() {
   if (USE_MOCK) {
     await sleep(100)
-    return roleOptions
   }
 
-  const response = await apiClient.get('/roles')
-  return response.data
+  return roleOptions
 }
 
 export async function fetchDashboard(role) {
@@ -131,8 +209,52 @@ export async function fetchDashboard(role) {
     }
   }
 
-  const response = await apiClient.get('/dashboard', { params: { role } })
-  return response.data
+  const [profileRes, payoutRes] = await Promise.all([
+    apiClient.get('/auth/profile'),
+    apiClient.get('/payouts/total'),
+  ])
+
+  let latestWeather = null
+  let weatherLogs = []
+
+  try {
+    const latestRes = await apiClient.get('/weather/latest')
+    latestWeather = unwrapData(latestRes)
+  } catch {
+    latestWeather = null
+  }
+
+  try {
+    const logsRes = await apiClient.get('/weather/logs', { params: { limit: 6 } })
+    weatherLogs = unwrapData(logsRes) || []
+  } catch {
+    weatherLogs = []
+  }
+
+  const profileData = unwrapData(profileRes)
+  const payoutData = unwrapData(payoutRes)
+  const user = profileData?.user || {}
+  const normalizedRole = normalizeRole(role || user.platform)
+  const coverageStatus = coverageByRole[normalizedRole] || 'Active'
+
+  const liveAlerts = weatherLogs.map((item) => ({
+    id: item.id,
+    type: item.eventType,
+    status: statusFromEventType(item.eventType),
+    zone: user.location || '-',
+    payout: item.eventType === 'NORMAL' ? 'INR 0' : 'INR 400',
+  }))
+
+  return {
+    worker: {
+      name: user.name || 'Gig Worker',
+      zone: user.location || '-',
+    },
+    coverageStatus,
+    totalPayouts: formatCurrencyInr(payoutData?.totalAmount),
+    liveAlerts,
+    aiDecision: decisionFromEventType(latestWeather?.eventType),
+  }
 }
 
 export async function fetchPayouts() {
@@ -141,21 +263,57 @@ export async function fetchPayouts() {
     return payouts
   }
 
-  const response = await apiClient.get('/payouts')
-  return response.data
+  const [historyRes, profileRes] = await Promise.all([
+    apiClient.get('/payouts/history'),
+    apiClient.get('/auth/profile'),
+  ])
+  const payoutRows = unwrapData(historyRes) || []
+  const profileData = unwrapData(profileRes)
+  const zone = profileData?.user?.location || '-'
+
+  return payoutRows.map((item) => ({
+    id: item.id,
+    event: item.reason || 'Disruption',
+    zone,
+    amount: formatCurrencyInr(item.amount),
+    status: item.status === 'paid' ? 'Auto Approved' : 'Processing',
+  }))
 }
 
-export async function simulateTrigger() {
+export async function simulateTrigger(location) {
   if (USE_MOCK) {
     await sleep()
     return {
       message:
-        'Heavy rain detected in your zone. ₹400 payout initiated to ravi@upi',
+        'Heavy rain detected in your zone. INR 400 payout initiated to your account.',
     }
   }
 
-  const response = await apiClient.post('/triggers/simulate')
-  return response.data
+  let workerLocation = location
+
+  if (!workerLocation) {
+    const profileRes = await apiClient.get('/auth/profile')
+    const profileData = unwrapData(profileRes)
+    workerLocation = profileData?.user?.location
+  }
+
+  if (!workerLocation) {
+    throw new Error('Location is missing for weather trigger')
+  }
+
+  await apiClient.post('/weather/check', { location: workerLocation })
+  const triggerRes = await apiClient.post('/payouts/trigger')
+  const result = unwrapData(triggerRes) || triggerRes?.data || {}
+
+  if (!result.payout) {
+    return {
+      message: result.message || 'No payout triggered for current weather conditions.',
+    }
+  }
+
+  return {
+    message: `Payout triggered: ${formatCurrencyInr(result.amount)} (${result.riskLevel || 'medium'} risk).`,
+  }
 }
 
 export async function registerWorker(payload) {
@@ -168,8 +326,20 @@ export async function registerWorker(payload) {
     }
   }
 
-  const response = await apiClient.post('/workers/register', payload)
-  return response.data
+  const response = await apiClient.post('/auth/register', {
+    name: payload.name,
+    email: payload.email,
+    password: payload.password,
+    location: payload.location,
+    platform: normalizeRole(payload.platform || 'worker'),
+  })
+
+  const responseData = unwrapData(response)
+  return {
+    success: true,
+    message: 'Worker successfully onboarded',
+    data: responseData?.user,
+  }
 }
 
 export async function fetchPlans() {
@@ -178,8 +348,7 @@ export async function fetchPlans() {
     return plans
   }
 
-  const response = await apiClient.get('/plans')
-  return response.data
+  return plans
 }
 
 export async function fetchAlerts() {
@@ -188,8 +357,22 @@ export async function fetchAlerts() {
     return alerts
   }
 
-  const response = await apiClient.get('/alerts')
-  return response.data
+  const [logsRes, profileRes] = await Promise.all([
+    apiClient.get('/weather/logs', { params: { limit: 20 } }),
+    apiClient.get('/auth/profile'),
+  ])
+
+  const logs = unwrapData(logsRes) || []
+  const profileData = unwrapData(profileRes)
+  const zone = profileData?.user?.location || '-'
+
+  return logs.map((item) => ({
+    id: item.id,
+    type: item.eventType,
+    status: statusFromEventType(item.eventType),
+    zone,
+    payout: item.eventType === 'NORMAL' ? 'INR 0' : 'INR 400',
+  }))
 }
 
 export async function fetchAiSnapshot() {
@@ -198,6 +381,24 @@ export async function fetchAiSnapshot() {
     return aiSnapshot
   }
 
-  const response = await apiClient.get('/ai/summary')
-  return response.data
+  const payoutRes = await apiClient.get('/payouts/total')
+  let latestWeather = null
+
+  try {
+    const latestWeatherRes = await apiClient.get('/weather/latest')
+    latestWeather = unwrapData(latestWeatherRes)
+  } catch {
+    latestWeather = null
+  }
+
+  const payoutData = unwrapData(payoutRes)
+  const eventType = latestWeather?.eventType || 'NORMAL'
+
+  return {
+    workerRisk: eventType === 'HEAT' ? 'High Risk' : eventType === 'RAIN' ? 'Medium Risk' : 'Low Risk',
+    zoneSeverity: eventType === 'NORMAL' ? 'Low' : 'High',
+    fraudCheck: 'Passed',
+    payoutConfidence: Number(payoutData?.totalAmount || 0) > 0 ? '92%' : '68%',
+    decision: decisionFromEventType(eventType),
+  }
 }

@@ -47,7 +47,7 @@ const fetchWeatherData = async (location, apiKey) => {
  * @param {string} [mlApiUrl] - ML API endpoint override
  * @returns {Promise<object>} ML prediction result
  */
-const sendMLPrediction = async (predictionPayload, mlApiUrl = process.env.ML_API_URL || 'http://localhost:5001/predict-payout') => {
+const sendMLPrediction = async (predictionPayload, mlApiUrl = process.env.ML_API_URL || 'http://127.0.0.1:5001/predict-payout') => {
   try {
     const response = await client.post(mlApiUrl, predictionPayload);
     return response.data;

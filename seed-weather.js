@@ -1,6 +1,10 @@
 const { MongoClient } = require('mongodb');
 
-const uri = 'mongodb+srv://2400032045cse1_db_user:tripadh@cluster0.r3asyvn.mongodb.net/gigshield_db';
+const uri = process.env.MONGO_URI;
+
+if (!uri) {
+  throw new Error('Missing MONGO_URI environment variable');
+}
 const client = new MongoClient(uri);
 
 const seedWeather = async (userId) => {

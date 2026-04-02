@@ -53,7 +53,10 @@ const apiCall = (method, path, body, token = null) => new Promise((resolve, reje
 
     // 2. Connect to MongoDB and seed a weather disruption
     console.log('\n[2] Seeding weather disruption in MongoDB...');
-    const mongoUri = 'mongodb+srv://2400032045cse1_db_user:tripadh@cluster0.r3asyvn.mongodb.net/gigshield_db';
+    const mongoUri = process.env.MONGO_URI;
+    if (!mongoUri) {
+      throw new Error('Missing MONGO_URI environment variable');
+    }
     await mongoose.connect(mongoUri);
     
     const weatherSchema = new mongoose.Schema({

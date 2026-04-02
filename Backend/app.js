@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Express Application Setup
  * Main app configuration with middleware and routes
@@ -13,6 +14,7 @@ const { errorHandler, notFoundHandler } = require('./middleware/errorHandler');
 const authRoutes = require('./routes/authRoutes');
 const weatherRoutes = require('./routes/weatherRoutes');
 const payoutRoutes = require('./routes/payoutRoutes');
+const devRoutes = require('./routes/devRoutes');
 
 // Initialize Express app
 const app = express();
@@ -41,6 +43,10 @@ app.get('/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/weather', weatherRoutes);
 app.use('/api/payouts', payoutRoutes);
+
+if (process.env.NODE_ENV !== 'production') {
+  app.use('/api/dev', devRoutes);
+}
 
 // 404 Handler
 app.use(notFoundHandler);

@@ -3,11 +3,10 @@ import { registerWorker } from '../services/gigshieldApi'
 
 const initialForm = {
   name: '',
-  occupation: '',
-  city: '',
-  dailyIncome: '',
-  shift: '',
-  upi: '',
+  email: '',
+  password: '',
+  location: '',
+  platform: 'worker',
 }
 
 function RegisterWorkerPage() {
@@ -16,11 +15,10 @@ function RegisterWorkerPage() {
 
   const fieldLabels = {
     name: 'Worker Name',
-    occupation: 'Occupation',
-    city: 'City / Zone',
-    dailyIncome: 'Daily Income',
-    shift: 'Shift',
-    upi: 'UPI ID',
+    email: 'Email',
+    password: 'Password',
+    location: 'City / Zone',
+    platform: 'Role',
   }
 
   async function handleSubmit(event) {
@@ -54,14 +52,30 @@ function RegisterWorkerPage() {
                 <span className="text-sm font-medium text-slate-700">
                   {fieldLabels[field]}
                 </span>
-                <input
-                  value={form[field]}
-                  onChange={(event) =>
-                    setForm((prev) => ({ ...prev, [field]: event.target.value }))
-                  }
-                  className="rounded-xl border border-slate-300 bg-white px-3 py-2 outline-none transition focus:border-slate-900"
-                  required
-                />
+                {field === 'platform' ? (
+                  <select
+                    value={form[field]}
+                    onChange={(event) =>
+                      setForm((prev) => ({ ...prev, [field]: event.target.value }))
+                    }
+                    className="rounded-xl border border-slate-300 bg-white px-3 py-2 outline-none transition focus:border-slate-900"
+                    required
+                  >
+                    <option value="worker">Worker</option>
+                    <option value="ops">Operations</option>
+                    <option value="insurer">Insurer</option>
+                  </select>
+                ) : (
+                  <input
+                    type={field === 'password' ? 'password' : field === 'email' ? 'email' : 'text'}
+                    value={form[field]}
+                    onChange={(event) =>
+                      setForm((prev) => ({ ...prev, [field]: event.target.value }))
+                    }
+                    className="rounded-xl border border-slate-300 bg-white px-3 py-2 outline-none transition focus:border-slate-900"
+                    required
+                  />
+                )}
               </label>
             ))}
 

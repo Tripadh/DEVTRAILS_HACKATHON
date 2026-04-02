@@ -7,7 +7,7 @@ const { sendMLPrediction } = require('../utils/axiosClient');
 const { isThresholdExceeded } = require('../utils/helpers');
 const { THRESHOLDS, ERROR_MESSAGES, PAYOUT_AMOUNT } = require('../utils/constants');
 
-const ML_API_URL = process.env.ML_API_URL || 'http://localhost:5001/predict-payout';
+const ML_API_URL = process.env.ML_API_URL || 'http://127.0.0.1:5001/predict-payout';
 
 const normalizeEventType = (eventType) => {
   const normalizedEventType = String(eventType || '').trim().toUpperCase();

@@ -4,6 +4,7 @@
  */
 
 const payoutService = require('../services/payoutService');
+const { formatResponse } = require('../utils/helpers');
 
 /**
  * Trigger Payout - POST /api/payouts/trigger
@@ -17,11 +18,12 @@ const triggerPayout = async (req, res, next) => {
     const result = await payoutService.triggerPayout(userId);
 
     const statusCode = result.payout ? 201 : 200;
-    res.status(statusCode).json({
+    res.status(statusCode).json(formatResponse(true, result.message, {
       payout: result.payout,
       amount: result.amount,
       riskLevel: result.riskLevel,
-    });
+      message: result.message,
+    }));
   } catch (error) {
     next(error);
   }

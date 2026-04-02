@@ -65,8 +65,8 @@ The project follows a **3-layer clean architecture**:
    # MongoDB Connection
    MONGO_URI=mongodb://localhost:27017/gigshield_db
    
-   # Or use MongoDB Atlas
-   MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/gigshield_db
+  # Or use MongoDB Atlas
+  MONGO_URI=<your_mongodb_connection_string>
    
    PORT=5000
    NODE_ENV=development
@@ -388,7 +388,7 @@ npm start
 2. **Create Cluster** and get connection string
 3. **Update .env:**
    ```
-   MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/gigshield_db
+  MONGO_URI=<your_mongodb_connection_string>
    ```
 
 ## Mongoose Resources
