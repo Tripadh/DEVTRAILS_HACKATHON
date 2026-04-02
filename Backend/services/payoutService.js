@@ -23,13 +23,11 @@ const disruptionReasonMap = {
  */
 const triggerPayout = async (userId) => {
   try {
-    // Verify user exists
     const user = await User.findById(userId);
     if (!user) {
       throw new Error(ERROR_MESSAGES.USER_NOT_FOUND);
     }
 
-    // Get latest disruption event snapshot
     const latestWeather = await Weather.findOne({ userId }).sort({ createdAt: -1 });
     if (!latestWeather) {
       const error = new Error('No disruption event data found for user. Run /api/weather/check first.');
@@ -39,49 +37,50 @@ const triggerPayout = async (userId) => {
 
     if (latestWeather.eventType === 'NORMAL') {
       return {
-        payoutDecision: false,
+        payout: false,
+        amount: 0,
+        riskLevel: 'low',
         message: 'No payout triggered - no disruption event detected',
-    }
-    }
-
-    // Get ML prediction
-    const prediction = await mlService.getRiskPrediction({
-      rainfall: latestWeather.rainfall,
-      temperature: latestWeather.temperature,
-    });
-
-    // If ML decides against payout on disruption event, stop here
-    if (prediction.payoutDecision === false) {
-      return {
-        payoutDecision: false,
-        message: 'No payout triggered - disruption risk below payout threshold',
       };
     }
 
-    // Fixed payout with optional ML-informed override
-    const payoutAmount = prediction.payoutAmount
-      || mlService.calculatePayoutAmount(prediction.riskScore, { baseAmount: PAYOUT_AMOUNT });
+    let prediction;
 
-    const reason = disruptionReasonMap[latestWeather.eventType] || 'External disruption';
+    try {
+      // Build the ML payload from user + weather context and ask the external FastAPI service.
+      prediction = await mlService.getRiskPrediction(user, latestWeather);
+    } catch (mlError) {
+      // If the ML API is unavailable, fall back to a simple weather threshold rule.
+      prediction = mlService.buildFallbackPrediction({
+        rainfall: latestWeather.rainfall,
+        temperature: latestWeather.temperature,
+        eventType: latestWeather.eventType,
+      });
+    }
 
-    // Create payout record
+    if (!prediction.eligible) {
+      return {
+        payout: false,
+        amount: 0,
+        riskLevel: prediction.risk_level || 'low',
+        message: prediction.message || 'No payout triggered - disruption risk below payout threshold',
+      };
+    }
+
+    const payoutAmount = Number(prediction.predicted_payout || PAYOUT_AMOUNT);
+
     const payout = await Payout.create({
       userId: userId,
       amount: payoutAmount,
-      reason,
-      status: PAYOUT_STATUS.PENDING,
+      reason: 'ML-based disruption',
+      status: PAYOUT_STATUS.PAID,
     });
 
     return {
-      payout: {
-        id: payout._id,
-        userId: payout.userId,
-        amount: payout.amount,
-        reason: payout.reason,
-        status: payout.status,
-        createdAt: payout.createdAt,
-      },
-      message: SUCCESS_MESSAGES.PAYOUT_TRIGGERED,
+      payout: true,
+      amount: payout.amount,
+      riskLevel: prediction.risk_level || 'medium',
+      message: prediction.message || SUCCESS_MESSAGES.PAYOUT_TRIGGERED,
     };
   } catch (error) {
     throw error;

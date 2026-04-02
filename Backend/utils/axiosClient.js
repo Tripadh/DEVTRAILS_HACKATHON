@@ -43,21 +43,14 @@ const fetchWeatherData = async (location, apiKey) => {
 
 /**
  * Send Prediction Request to ML API
- * @param {object} weatherData - Weather data
+ * @param {object} predictionPayload - Payload expected by the FastAPI ML service
+ * @param {string} [mlApiUrl] - ML API endpoint override
  * @returns {Promise<object>} ML prediction result
  */
-const sendMLPrediction = async (weatherData) => {
+const sendMLPrediction = async (predictionPayload, mlApiUrl = process.env.ML_API_URL || 'http://localhost:5001/predict-payout') => {
   try {
-    const response = await client.post(process.env.ML_API_URL, {
-      rainfall: weatherData.rainfall,
-      temperature: weatherData.temperature,
-    });
-
-    return {
-      riskScore: response.data.riskScore || 0,
-      payoutDecision: response.data.payoutDecision || false,
-      payoutAmount: response.data.payoutAmount || 0,
-    };
+    const response = await client.post(mlApiUrl, predictionPayload);
+    return response.data;
   } catch (error) {
     throw new Error(`ML API Error: ${error.message}`);
   }

@@ -7,33 +7,79 @@ const { sendMLPrediction } = require('../utils/axiosClient');
 const { isThresholdExceeded } = require('../utils/helpers');
 const { THRESHOLDS, ERROR_MESSAGES, PAYOUT_AMOUNT } = require('../utils/constants');
 
+const ML_API_URL = process.env.ML_API_URL || 'http://localhost:5001/predict-payout';
+
+const normalizeEventType = (eventType) => {
+  const normalizedEventType = String(eventType || '').trim().toUpperCase();
+
+  if (normalizedEventType === 'RAIN') {
+    return 'heavy_rain';
+  }
+
+  if (normalizedEventType === 'HEAT') {
+    // The FastAPI service accepts extreme_heat, not heatwave.
+    return 'extreme_heat';
+  }
+
+  return 'heavy_rain';
+};
+
+const buildMlPayload = (user, weatherData) => {
+  return {
+    worker_id: String(user._id),
+    city: user.location,
+    persona: user.persona || 'food',
+    disruption_type: normalizeEventType(weatherData.eventType),
+    rainfall_mm: Number(weatherData.rainfall ?? 0),
+    temperature_celsius: Number(weatherData.temperature ?? 0),
+    aqi: Number(weatherData.aqi ?? 200),
+    wind_speed_kmh: Number(weatherData.wind_speed_kmh ?? 20),
+    worker_zone_risk_score: Number(weatherData.worker_zone_risk_score ?? 0.7),
+    hours_lost: Number(weatherData.hours_lost ?? 4),
+  };
+};
+
+const buildFallbackPrediction = (weatherData) => {
+  const thresholdExceeded = isThresholdExceeded(weatherData, THRESHOLDS);
+
+  if (!thresholdExceeded) {
+    return {
+      eligible: false,
+      predicted_payout: 0,
+      risk_level: 'low',
+      message: 'No disruption risk detected - thresholds not exceeded',
+      source: 'fallback',
+    };
+  }
+
+  return {
+    eligible: true,
+    predicted_payout: PAYOUT_AMOUNT,
+    risk_level: weatherData.eventType === 'HEAT' ? 'high' : 'medium',
+    message: 'Fallback payout applied after ML API failure',
+    source: 'fallback',
+  };
+};
+
 /**
- * Get Risk Prediction for disruption event
- * @param {object} weatherData - Weather snapshot
+ * Get payout prediction from the external FastAPI service.
+ * The payload is shaped to match ml-model/main.py.
+ * @param {object} user - Authenticated user document
+ * @param {object} weatherData - Latest weather snapshot
  * @returns {Promise<object>} ML prediction result
  */
-const getRiskPrediction = async (weatherData) => {
+const getRiskPrediction = async (user, weatherData) => {
   try {
-    // Check if thresholds exceeded
-    const thresholdExceeded = isThresholdExceeded(weatherData, THRESHOLDS);
-
-    if (!thresholdExceeded) {
-      return {
-        riskScore: 0,
-        payoutDecision: false,
-        payoutAmount: 0,
-        message: 'No disruption risk detected - thresholds not exceeded',
-      };
-    }
-
-    // Send to ML API for prediction
-    const prediction = await sendMLPrediction(weatherData);
+    const payload = buildMlPayload(user, weatherData);
+    const prediction = await sendMLPrediction(payload, ML_API_URL);
 
     return {
-      riskScore: prediction.riskScore,
-      payoutDecision: prediction.payoutDecision,
-      payoutAmount: prediction.payoutAmount,
-      message: 'Risk prediction completed',
+      eligible: Boolean(prediction.eligible),
+      predicted_payout: Number(prediction.predicted_payout ?? 0),
+      risk_level: prediction.risk_level || 'low',
+      message: prediction.message || 'Payout prediction completed',
+      source: 'ml',
+      payload,
     };
   } catch (error) {
     throw new Error(`${ERROR_MESSAGES.ML_API_ERROR}: ${error.message}`);
@@ -89,4 +135,6 @@ module.exports = {
   getRiskPrediction,
   calculatePayoutAmount,
   analyzeWeatherRisk,
+  buildMlPayload,
+  buildFallbackPrediction,
 };
