@@ -62,8 +62,46 @@ const validatePassword = (req, res, next) => {
   next();
 };
 
+/**
+ * Validate Phone Number
+ * Keeps the OTP flow simple by accepting 10-15 digits after cleanup.
+ */
+const validatePhoneNumber = (req, res, next) => {
+  const phone = String(req.body.phone || '').replace(/\D/g, '');
+
+  if (phone.length < 10 || phone.length > 15) {
+    return res.status(400).json({
+      success: false,
+      message: 'Please enter a valid phone number',
+    });
+  }
+
+  req.body.phone = phone;
+  next();
+};
+
+/**
+ * Validate OTP Format
+ * OTP must be exactly 6 digits.
+ */
+const validateOtpCode = (req, res, next) => {
+  const otp = String(req.body.otp || '').trim();
+
+  if (!/^\d{6}$/.test(otp)) {
+    return res.status(400).json({
+      success: false,
+      message: 'OTP must be a 6-digit code',
+    });
+  }
+
+  req.body.otp = otp;
+  next();
+};
+
 module.exports = {
   validateRequiredFields,
   validateEmail,
   validatePassword,
+  validatePhoneNumber,
+  validateOtpCode,
 };

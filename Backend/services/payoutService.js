@@ -13,15 +13,19 @@ const { ERROR_MESSAGES, SUCCESS_MESSAGES, PAYOUT_STATUS, PAYOUT_AMOUNT } = requi
 const disruptionReasonMap = {
   RAIN: 'Heavy Rain Disruption',
   HEAT: 'Extreme Heat Disruption',
+  FLOOD: 'Flood Disruption',
+  CYCLONE: 'Cyclone Disruption',
+  CURFEW: 'Curfew Disruption',
   NORMAL: 'No disruption',
 };
 
 /**
  * Trigger Payout from latest disruption event
  * @param {string} userId - User ID (MongoDB ObjectId)
+ * @param {object} options - Optional activation metadata
  * @returns {Promise<object>} Payout result
  */
-const triggerPayout = async (userId) => {
+const triggerPayout = async (userId, options = {}) => {
   try {
     const user = await User.findById(userId);
     if (!user) {
@@ -72,7 +76,11 @@ const triggerPayout = async (userId) => {
     const payout = await Payout.create({
       userId: userId,
       amount: payoutAmount,
-      reason: 'ML-based disruption',
+      planName: options.planName || null,
+      upiId: options.upiId || null,
+      reason: options.planName
+        ? `ML-based disruption - ${options.planName}`
+        : disruptionReasonMap[latestWeather.eventType] || 'ML-based disruption',
       status: PAYOUT_STATUS.PAID,
     });
 
@@ -80,6 +88,8 @@ const triggerPayout = async (userId) => {
       payout: true,
       amount: payout.amount,
       riskLevel: prediction.risk_level || 'medium',
+      planName: options.planName || null,
+      upiId: options.upiId || null,
       message: prediction.message || SUCCESS_MESSAGES.PAYOUT_TRIGGERED,
     };
   } catch (error) {

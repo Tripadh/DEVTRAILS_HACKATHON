@@ -16,8 +16,10 @@ const seedWeather = async (userId) => {
     const result = await weathers.insertOne({
       userId: require('mongodb').ObjectId.createFromHexString(userId),
       rainfall: 120,
+      humidity: 92,
       temperature: 45,
-      eventType: 'HEAT',
+      windSpeed: 34,
+      eventType: 'FLOOD',
       createdAt: new Date(),
     });
     

@@ -14,14 +14,17 @@ const { formatResponse } = require('../utils/helpers');
 const triggerPayout = async (req, res, next) => {
   try {
     const userId = req.user.userId;
+    const { planName, upiId } = req.body || {};
 
-    const result = await payoutService.triggerPayout(userId);
+    const result = await payoutService.triggerPayout(userId, { planName, upiId });
 
     const statusCode = result.payout ? 201 : 200;
     res.status(statusCode).json(formatResponse(true, result.message, {
       payout: result.payout,
       amount: result.amount,
       riskLevel: result.riskLevel,
+      planName: result.planName,
+      upiId: result.upiId,
       message: result.message,
     }));
   } catch (error) {

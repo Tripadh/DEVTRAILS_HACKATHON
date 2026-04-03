@@ -30,6 +30,7 @@ const startServer = async () => {
       `);
       console.log('API Endpoints:');
       console.log('  - Authorization: POST /api/auth/register, POST /api/auth/login');
+      console.log('  - OTP Auth: POST /api/auth/request-otp, POST /api/auth/verify-otp');
       console.log('  - Weather: POST /api/weather/check, GET /api/weather/logs');
       console.log('  - Payout: POST /api/payouts/trigger, GET /api/payouts/history');
     });

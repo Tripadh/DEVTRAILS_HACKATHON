@@ -21,15 +21,26 @@ const weatherSchema = new mongoose.Schema(
       default: 0,
       min: [0, 'Rainfall cannot be negative'],
     },
+    humidity: {
+      type: Number,
+      default: 0,
+      min: [0, 'Humidity cannot be negative'],
+      max: [100, 'Humidity cannot exceed 100'],
+    },
     temperature: {
       type: Number,
       default: 0,
       min: [-50, 'Temperature is too low'],
       max: [60, 'Temperature is too high'],
     },
+    windSpeed: {
+      type: Number,
+      default: 0,
+      min: [0, 'Wind speed cannot be negative'],
+    },
     eventType: {
       type: String,
-      enum: ['RAIN', 'HEAT', 'NORMAL'],
+      enum: ['RAIN', 'HEAT', 'FLOOD', 'CYCLONE', 'CURFEW', 'NORMAL'],
       default: 'NORMAL',
     },
   },

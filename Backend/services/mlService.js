@@ -21,6 +21,18 @@ const normalizeEventType = (eventType) => {
     return 'extreme_heat';
   }
 
+  if (normalizedEventType === 'FLOOD') {
+    return 'flood';
+  }
+
+  if (normalizedEventType === 'CYCLONE') {
+    return 'flood';
+  }
+
+  if (normalizedEventType === 'CURFEW') {
+    return 'curfew';
+  }
+
   return 'heavy_rain';
 };
 
@@ -34,6 +46,7 @@ const buildMlPayload = (user, weatherData) => {
     temperature_celsius: Number(weatherData.temperature ?? 0),
     aqi: Number(weatherData.aqi ?? 200),
     wind_speed_kmh: Number(weatherData.wind_speed_kmh ?? 20),
+    humidity: Number(weatherData.humidity ?? 80),
     worker_zone_risk_score: Number(weatherData.worker_zone_risk_score ?? 0.7),
     hours_lost: Number(weatherData.hours_lost ?? 4),
   };

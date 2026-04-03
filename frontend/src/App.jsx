@@ -4,6 +4,7 @@ import AppShell from './components/AppShell'
 import AIRiskEnginePage from './pages/AIRiskEnginePage'
 import CoveragePlansPage from './pages/CoveragePlansPage'
 import DashboardPage from './pages/DashboardPage'
+import LiveTrackingPage from './pages/LiveTrackingPage'
 import LoginPage from './pages/LoginPage'
 import PayoutPage from './pages/PayoutPage'
 import RegisterWorkerPage from './pages/RegisterWorkerPage'
@@ -41,8 +42,16 @@ function ProtectedLayout({ user, onLogout }) {
         <Route
           path="/plans"
           element={
-            <RequireRole user={user} allow={['worker', 'ops']}>
-              <CoveragePlansPage />
+            <RequireRole user={user} allow={['worker']}>
+              <CoveragePlansPage user={user} />
+            </RequireRole>
+          }
+        />
+        <Route
+          path="/tracking"
+          element={
+            <RequireRole user={user} allow={['worker']}>
+              <LiveTrackingPage user={user} />
             </RequireRole>
           }
         />

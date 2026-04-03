@@ -23,6 +23,7 @@ const checkWeather = async (req, res, next) => {
       temperature: result.temperature,
       rainfall: result.rainfall,
       humidity: result.humidity,
+      windSpeed: result.windSpeed,
       eventType: result.eventType,
       disruption: result.disruption,
     }));

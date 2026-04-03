@@ -21,6 +21,14 @@ const payoutSchema = new mongoose.Schema(
       required: [true, 'Amount is required'],
       min: [0, 'Amount cannot be negative'],
     },
+    planName: {
+      type: String,
+      trim: true,
+    },
+    upiId: {
+      type: String,
+      trim: true,
+    },
     reason: {
       type: String,
       required: [true, 'Payout reason is required'],

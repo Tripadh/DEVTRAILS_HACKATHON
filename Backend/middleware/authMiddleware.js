@@ -31,9 +31,9 @@ const authenticateToken = (req, res, next) => {
       });
     }
 
-    // Verify token and attach user context
+    // Verify token and attach the decoded payload for downstream handlers.
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = { userId: decoded.userId };
+    req.user = decoded;
     next();
   } catch (error) {
     return res.status(401).json({

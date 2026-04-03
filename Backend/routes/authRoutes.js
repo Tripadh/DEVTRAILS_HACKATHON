@@ -12,6 +12,8 @@ const {
   validateRequiredFields,
   validateEmail,
   validatePassword,
+  validatePhoneNumber,
+  validateOtpCode,
 } = require('../middleware/validateRequest');
 
 /**
@@ -38,9 +40,44 @@ router.post(
 );
 
 /**
+ * POST /api/auth/request-otp
+ * Generate a temporary OTP for phone number login.
+ */
+router.post(
+  '/request-otp',
+  validateRequiredFields(['phone']),
+  validatePhoneNumber,
+  authController.requestOtp
+);
+
+/**
+ * POST /api/auth/verify-otp
+ * Verify the OTP and create an authenticated session.
+ */
+router.post(
+  '/verify-otp',
+  validateRequiredFields(['phone', 'otp']),
+  validatePhoneNumber,
+  validateOtpCode,
+  authController.verifyOtp
+);
+
+/**
  * GET /api/auth/profile
  * Get user profile (Protected route)
  */
 router.get('/profile', authenticateToken, authController.getProfile);
+
+/**
+ * GET /api/auth/workers
+ * Get stored workers for roster views.
+ */
+router.get('/workers', authenticateToken, authController.getWorkers);
+
+/**
+ * DELETE /api/auth/workers/:workerId
+ * Delete a worker from the roster.
+ */
+router.delete('/workers/:workerId', authenticateToken, authController.removeWorker);
 
 module.exports = router;

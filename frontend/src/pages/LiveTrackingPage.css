@@ -1,0 +1,309 @@
+/* Live Tracking Page Styles */
+
+.live-tracking-page {
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+}
+
+/* Header Section */
+.tracking-header {
+  padding: 1.25rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 250, 253, 0.95));
+  border-radius: 1rem;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 0.75rem;
+  background: #ecfeff;
+  color: #0284c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.header-subtitle {
+  font-size: 0.95rem;
+  color: #475569;
+  margin: 0.25rem 0 0;
+}
+
+/* Map Section */
+.tracking-map-section {
+  padding: 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+/* Stats Grid */
+.tracking-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.stat-card-small {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 8px 20px -18px rgba(15, 23, 42, 0.45);
+}
+
+.stat-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: #94a3b8;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label svg {
+  color: #0284c7;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.stat-value.text-sm {
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+/* Info Section */
+.tracking-info {
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.info-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 1.25rem;
+}
+
+.info-title svg {
+  color: #0284c7;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.info-item {
+  display: flex;
+  gap: 1rem;
+}
+
+.info-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 0.5rem;
+  background: #ecfeff;
+  color: #0284c7;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.info-item-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 0.25rem;
+}
+
+.info-item-desc {
+  font-size: 0.875rem;
+  color: #475569;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Tips Section */
+.tracking-tips {
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid #fef3c7;
+  background: #fffbeb;
+}
+
+.tips-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #92400e;
+  margin: 0 0 1rem;
+}
+
+.tips-title svg {
+  color: #d97706;
+}
+
+.tips-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.tips-list li {
+  display: flex;
+  gap: 0.75rem;
+  padding-left: 0;
+  font-size: 0.95rem;
+  color: #78350f;
+  line-height: 1.6;
+}
+
+.tips-list li:before {
+  content: '✓';
+  flex-shrink: 0;
+  color: #d97706;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1280px) {
+  .tracking-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .live-tracking-page {
+    gap: 1rem;
+  }
+
+  .tracking-header {
+    padding: 1rem;
+  }
+
+  .header-content {
+    gap: 0.75rem;
+  }
+
+  .header-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .header-title {
+    font-size: 1.5rem;
+  }
+
+  .header-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .tracking-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .stat-card-small {
+    padding: 0.85rem;
+  }
+
+  .stat-value {
+    font-size: 1.25rem;
+  }
+
+  .info-title,
+  .tips-title {
+    font-size: 1.2rem;
+  }
+
+  .info-grid {
+    gap: 0.85rem;
+  }
+
+  .info-item {
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tracking-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header-title {
+    font-size: 1.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+  }
+
+  .stat-value {
+    font-size: 1rem;
+  }
+
+  .info-number {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    font-size: 1rem;
+  }
+
+  .info-item-title {
+    font-size: 0.95rem;
+  }
+
+  .info-item-desc {
+    font-size: 0.8rem;
+  }
+
+  .tips-list li {
+    font-size: 0.85rem;
+  }
+}

@@ -27,6 +27,7 @@ export const demoUsers = [
     role: 'worker',
     company: 'Zomato',
     workerCompanyId: 'ZOM-7782',
+    location: 'Bengaluru',
   },
   {
     id: 'usr-2',
