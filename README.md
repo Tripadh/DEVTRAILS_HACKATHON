@@ -7,7 +7,7 @@ Free, automatic payouts when rain, heat, or curfews make work impossible - no cl
 [![Cost to Workers](https://img.shields.io/badge/Cost%20to%20Workers-%E2%82%B90-green?style=flat-square)](https://github.com/Tripadh/DEVTRAILS_HACKATHON)
 [![Payout Time](https://img.shields.io/badge/Payout%20Time-%3C15%20min-brightgreen?style=flat-square)](https://github.com/Tripadh/DEVTRAILS_HACKATHON)
 
-🎬 **[Live Demo](#live-demo-link)** | 🎨 **[Figma Prototype](#figma-prototype-link)** | 📹 **[2-min Video](#two-min-video-link)** | 🌐 **[Full UI Page](https://tripadh.github.io/DEVTRAILS_HACKATHON/)**
+🎬 **[Live Demo](#live-demo-link)** | 🎨 **[Figma Prototype](https://www.figma.com/make/XBmkg1ubjL8MjLYYMIDJZY/GigShield-App-Design?fullscreen=1&t=zO9xtBZ2OdJt265J-1)** | 📹 **[2-min Video](https://youtu.be/x2Gdp-J2RzI?si=XM8ghIRL1aSOBdy1)** | 🌐 **[Full UI Page](https://tripadh.github.io/DEVTRAILS_HACKATHON/)**
 
 ---
 
@@ -29,6 +29,7 @@ Free, automatic payouts when rain, heat, or curfews make work impossible - no cl
 | 12 | [UX Design Flow](#12--ux-design-flow) |
 | 13 | [Why Our Solution is Strong](#13--why-our-solution-is-strong) |
 | 14 | [Future Scope](#14--future-scope) |
+| 15 | [Phase 2: Automation & Protection](#15--phase-2-automation--protection) |
 
 ---
 
@@ -296,22 +297,156 @@ Design principles:
 
 ---
 
+<a id="15--phase-2-automation--protection"></a>
+## 15 - Phase 2: Automation & Protection 🚀
+*(March 21 – April 4 | Theme: Protect Your Worker)*
+
+Phase 2 focuses on transforming GigShield into a **fully automated, AI-driven protection system** that eliminates manual processes and delivers instant support to workers.
+
+---
+
+### 🔐 1. Automated Onboarding
+
+- OTP-based authentication using Firebase
+- Quick registration with minimal inputs
+- UPI ID linking for direct payouts
+- Instant activation of coverage
+
+✅ Workers are protected immediately after signup with zero paperwork.
+
+---
+
+### 📑 2. Smart Policy Management
+
+- Policies generated automatically based on worker profile and zone
+- Real-time policy states:
+  - 🟢 Active
+  - 🟡 Monitoring
+  - 🔴 Triggered
+- Transparent coverage details in the app
+
+🎯 Ensures workers always know their protection status.
+
+---
+
+### 💰 3. AI-Based Dynamic Pricing
+
+Premiums are dynamically adjusted using AI models.
+
+**Factors considered:**
+- Location-based risk (geohash zones)
+- Weather history and forecasts
+- Worker activity patterns
+- Historical disruption frequency
+
+**Models Used:**
+- XGBoost for risk scoring
+- Time-series forecasting for weather trends
+
+📊 Enables fair and adaptive pricing.
+
+---
+
+### ⚡ 4. Zero-Touch Claims System
+
+Traditional claims are completely removed.
+
+**Automated Process:**
+1. Event detected via APIs
+2. Cross-verification using multiple sources
+3. Fraud detection (<30 seconds)
+4. Instant payout via UPI
+
+⏱️ Claim time: 0 seconds  
+💸 Payout time: under 15 minutes
+
+---
+
+### 🤖 5. Automated Trigger Detection
+
+System continuously monitors external events:
+
+| Trigger | Detection Source |
+|---------|-----------------|
+| 🌧️ Heavy Rain | Weather APIs |
+| 🌡️ Heatwave | Temperature models |
+| 🚫 Curfew | Government data |
+| 🌊 Flood | Municipal alerts |
+| 🌀 Cyclone | IMD tracking |
+
+🔒 Trigger activates only when 2+ sources confirm the event.
+
+---
+
+### 🧠 6. AI Protection Layer
+
+- Predictive alerts before disruptions
+- Zone-based risk scoring
+- Smart fraud detection integration
+- Adaptive system behavior based on real-time data
+
+---
+
+### 🔁 7. End-to-End Automated Flow
+
+```text
+User Signup → Coverage Active → Zone Monitoring → Trigger Detection
+→ Fraud Check → UPI Payout → Notification Sent
+```
+
+✔ Fully automated &nbsp; ✔ No manual intervention &nbsp; ✔ Scalable for large user base
+
+---
+
+### 🎯 8. Zero-Touch User Experience
+
+- No forms or claims required
+- Real-time notifications
+- Simple, multilingual interface
+- Transparent payout explanations
+
+💡 **Core Principle:** *"Protection without effort from the worker"*
+
+---
+
+### 📹 9. Phase 2 Deliverables
+
+- Functional working system
+- AI-based pricing module
+- Automated trigger detection
+- Instant payout workflow
+- Demo video and UI prototype
+
+---
+
+### 🚀 10. Impact of Phase 2
+
+| Feature | Benefit |
+|---------|---------|
+| Automation | Eliminates manual processes |
+| AI Pricing | Fair and adaptive premiums |
+| Real-Time Detection | Faster response to disruptions |
+| Zero-Touch UX | Effortless experience |
+| Fraud Protection | Secure payouts |
+
+---
+
 ## 👥 Team
 
 Built for the GigShield Hackathon - Phase 1 Submission (March 2025).
 
 ---
 
-## Links To Be Added
+## 🔗 Links
 
 <a id="live-demo-link"></a>
-- Live Demo: coming soon
+- 🚀 Live Demo: coming soon
 
 <a id="figma-prototype-link"></a>
-- Figma Prototype: coming soon
+- 🎨 Figma Prototype: https://www.figma.com/make/XBmkg1ubjL8MjLYYMIDJZY/GigShield-App-Design?fullscreen=1&t=zO9xtBZ2OdJt265J-1
 
 <a id="two-min-video-link"></a>
-- 2-min Video: coming soon
+- 📹 2-min Video: https://youtu.be/x2Gdp-J2RzI?si=XM8ghIRL1aSOBdy1
 
 ---
 
