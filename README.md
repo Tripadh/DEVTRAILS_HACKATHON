@@ -126,8 +126,7 @@ Cross-validation rule: trigger fires only when at least two independent data sou
 
 <a id="06--coverage-model"></a>
 ## 06 - Coverage Model
-
-### 🎁 100% free for every gig delivery worker
+Total 3 plans for users 
 
 | Included benefit |
 |------------------|
@@ -433,7 +432,7 @@ User Signup → Coverage Active → Zone Monitoring → Trigger Detection
 
 ## 👥 Team
 
-Built for the GigShield Hackathon - Phase 1 Submission (March 2025).
+Built for the GigShield Hackathon - Phase 2 Submission.
 
 ---
 
