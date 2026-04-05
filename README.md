@@ -4,7 +4,6 @@ Free, automatic payouts when rain, heat, or curfews make work impossible - no cl
 
 [![Phase](https://img.shields.io/badge/Phase-1%20Submission-orange?style=flat-square)](https://github.com/Tripadh/DEVTRAILS_HACKATHON)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%28React%20Native%29-blue?style=flat-square)](https://github.com/Tripadh/DEVTRAILS_HACKATHON)
-[![Cost to Workers](https://img.shields.io/badge/Cost%20to%20Workers-%E2%82%B90-green?style=flat-square)](https://github.com/Tripadh/DEVTRAILS_HACKATHON)
 [![Payout Time](https://img.shields.io/badge/Payout%20Time-%3C15%20min-brightgreen?style=flat-square)](https://github.com/Tripadh/DEVTRAILS_HACKATHON)
 
 🎬 **[Live Demo](#live-demo-link)** | 🎨 **[Figma Prototype](https://www.figma.com/make/XBmkg1ubjL8MjLYYMIDJZY/GigShield-App-Design?fullscreen=1&t=zO9xtBZ2OdJt265J-1)** | 📹 **[2-min Video](https://youtu.be/x2Gdp-J2RzI?si=XM8ghIRL1aSOBdy1)** | 🌐 **[Full UI Page](https://tripadh.github.io/DEVTRAILS_HACKATHON/)**
